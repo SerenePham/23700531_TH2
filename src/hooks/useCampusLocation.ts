@@ -41,6 +41,9 @@ export const computeShippingFee = (km: number): number => {
   return BASE_SHIP_FEE + Math.round(km * 1500) + 2000;
 };
 
+// Phí ship mặc định khi chưa có vị trí
+const DEFAULT_SHIP_FEE = 10000;
+
 // Global shared state để đồng bộ giữa màn Tôi (MeScreen) và màn Giỏ (CartScreen)
 let globalLocationState = {
   status: 'granted' as PermissionStatus,
@@ -124,6 +127,8 @@ export const useCampusLocation = () => {
     globalLocationState = {
       ...globalLocationState,
       status,
+      // Khi không có vị trí, dùng phí ship mặc định 10,000đ
+      shippingFee: status === 'granted' ? globalLocationState.shippingFee : DEFAULT_SHIP_FEE,
       hasLocation: status === 'granted',
     };
     notifyListeners();
