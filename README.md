@@ -19,18 +19,19 @@
 
 ## Screenshots thực tế
 
-### Cửa hàng
+### Cửa hàng & Account
 
 <p align="center">
   <img src="docs/HomeScreen.jpg" width="48%">
-  <img src="docs/LoadingNoInternet.jpg" width="48%">
+  <img src="docs/AccountScreen.jpg" width="48%">
 </p>
 
-### Mạng & Chi tiết món
+### Mạng Internet/Data
 
 <p align="center">
   <img src="docs/NoInternetError.jpg" width="48%">
-  <img src="docs/ItemDetail.jpg" width="48%">
+  <img src="docs/LoadingNoInternet.jpg" width="48%">
+  
 </p>
 
 ### Giỏ hàng
@@ -40,9 +41,10 @@
   <img src="docs/CartScreenNoGPS.jpg" width="48%">
 </p>
 
-### Vị trí & Tài khoản
+### Vị trí & Thông tin chi tiết
 
 <p align="center">
   <img src="docs/GPSrequest.jpg" width="48%">
-  <img src="docs/AccountScreen.jpg" width="48%">
+  <img src="docs/ItemDetail.jpg" width="48%">
+  
 </p>
