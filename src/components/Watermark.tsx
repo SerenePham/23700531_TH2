@@ -11,7 +11,6 @@ export const Watermark: React.FC = () => {
       <Text style={styles.text} numberOfLines={1}>
         TH2 · {STUDENT.mssv} · {STUDENT.hoTen} · #{stamp}
       </Text>
-      <Text style={styles.tag}>(0)</Text>
     </View>
   );
 };
@@ -20,12 +19,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#DBEAFE',
     paddingHorizontal: 12,
-    paddingVertical: 4,
+    paddingVertical: 5,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: COLORS.border,
+    justifyContent: 'center',
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: COLORS.border,
     zIndex: 999,
   },
   text: {
@@ -33,14 +32,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: COLORS.text,
     letterSpacing: 0.2,
-    flex: 1,
     textAlign: 'center',
-  },
-  tag: {
-    fontSize: 10,
-    fontWeight: '600',
-    color: COLORS.text,
-    marginLeft: 6,
   },
 });
 

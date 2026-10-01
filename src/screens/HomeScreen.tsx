@@ -12,7 +12,7 @@ import { FlashList } from '@shopify/flash-list';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { STUDENT, ROOM_LABEL, STALE_TIME_MS, VARIANT } from '@constants/student';
+import { STUDENT, STALE_TIME_MS, VARIANT } from '@constants/student';
 import { COLORS } from '@constants/theme';
 import Watermark from '@components/Watermark';
 import ProductCard from '@components/ProductCard';
@@ -78,9 +78,6 @@ export const HomeScreen: React.FC = () => {
     // 3. Cảnh có dữ liệu lưới (Data)
     return (
       <View style={styles.listContainer}>
-        <View style={styles.listHeaderRow}>
-          <Text style={styles.flashListBadge}>(C) FlashList x2</Text>
-        </View>
         <FlashList
           data={filteredProducts}
           numColumns={2}
@@ -110,9 +107,8 @@ export const HomeScreen: React.FC = () => {
       <View style={styles.headerBanner}>
         <View>
           <Text style={styles.headerTitle}>KTXGO</Text>
-          <Text style={styles.headerSubtitle}>Giao tận {ROOM_LABEL}</Text>
+          <Text style={styles.headerSubtitle}>Giao tại phòng X7.15</Text>
         </View>
-        <Text style={styles.headerTag}>(A)</Text>
       </View>
 
       {/* Ô tìm kiếm có Debounce */}
@@ -126,7 +122,6 @@ export const HomeScreen: React.FC = () => {
             placeholderTextColor={COLORS.textLight}
             clearButtonMode="while-editing"
           />
-          <Text style={styles.searchTag}>(B)</Text>
         </View>
       </View>
 
@@ -146,10 +141,8 @@ const styles = StyleSheet.create({
   headerBanner: {
     backgroundColor: COLORS.primary,
     paddingHorizontal: 16,
-    paddingVertical: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    paddingVertical: 14,
+    justifyContent: 'center',
   },
   headerTitle: {
     fontSize: 22,
@@ -161,11 +154,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#E0E7FF',
     marginTop: 2,
-  },
-  headerTag: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: '#BFDBFE',
+    fontWeight: '600',
   },
   searchSection: {
     paddingHorizontal: 12,
@@ -179,34 +168,16 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
     paddingHorizontal: 16,
     paddingVertical: 8,
-    position: 'relative',
     justifyContent: 'center',
   },
   searchInput: {
     fontSize: 13,
     color: COLORS.text,
-    paddingRight: 32,
     paddingVertical: 2,
-  },
-  searchTag: {
-    position: 'absolute',
-    right: 14,
-    fontSize: 11,
-    fontWeight: '700',
-    color: COLORS.textLight,
-  },
-  listHeaderRow: {
-    paddingHorizontal: 14,
-    paddingVertical: 4,
-    alignItems: 'flex-end',
-  },
-  flashListBadge: {
-    fontSize: 11,
-    color: COLORS.primary,
-    fontWeight: '600',
   },
   mainContent: {
     flex: 1,
+    marginTop: 4,
   },
   listContainer: {
     flex: 1,

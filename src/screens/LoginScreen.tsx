@@ -9,19 +9,18 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { STUDENT, VARIANT } from '@constants/student';
+import { VARIANT } from '@constants/student';
 import { COLORS } from '@constants/theme';
 import Watermark from '@components/Watermark';
 import useAuthStore from '@stores/authStore';
 
 export const LoginScreen: React.FC = () => {
   const login = useAuthStore((state) => state.login);
-  const defaultPlaceholder =
-    VARIANT.authField === 'email'
-      ? `Email — ${STUDENT.mssv}@iuh.edu.vn`
-      : `Số điện thoại — 09${STUDENT.mssv}`;
-
-  const [inputValue, setInputValue] = useState(defaultPlaceholder);
+  
+  // Placeholder ẩn dưới để người dùng biết
+  const placeholderText = 'Số điện thoại đăng nhập (0908564791)';
+  // Nhập sẵn 1 số điện thoại 10 số
+  const [inputValue, setInputValue] = useState('0908564791');
 
   const handleLogin = () => {
     login(inputValue);
@@ -44,12 +43,11 @@ export const LoginScreen: React.FC = () => {
               style={styles.input}
               value={inputValue}
               onChangeText={setInputValue}
-              placeholder={defaultPlaceholder}
+              placeholder={placeholderText}
               placeholderTextColor={COLORS.textLight}
-              keyboardType={VARIANT.authField === 'email' ? 'email-address' : 'phone-pad'}
+              keyboardType="phone-pad"
               autoCapitalize="none"
             />
-            <Text style={styles.inputTag}>(A)</Text>
           </View>
 
           <TouchableOpacity
@@ -59,8 +57,6 @@ export const LoginScreen: React.FC = () => {
           >
             <Text style={styles.loginButtonText}>Vào cửa hàng</Text>
           </TouchableOpacity>
-
-          <Text style={styles.footerNote}>Auth Stack · chưa có token</Text>
         </View>
       </KeyboardAvoidingView>
 
@@ -97,7 +93,6 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   inputWrapper: {
-    position: 'relative',
     marginBottom: 20,
   },
   input: {
@@ -107,17 +102,8 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     paddingHorizontal: 16,
     paddingVertical: 14,
-    fontSize: 14,
+    fontSize: 15,
     color: COLORS.text,
-    paddingRight: 40,
-  },
-  inputTag: {
-    position: 'absolute',
-    right: 14,
-    top: 14,
-    fontSize: 12,
-    fontWeight: '700',
-    color: COLORS.primary,
   },
   loginButton: {
     backgroundColor: COLORS.primary,
@@ -134,12 +120,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '700',
-  },
-  footerNote: {
-    marginTop: 24,
-    fontSize: 12,
-    color: COLORS.textLight,
-    textAlign: 'center',
   },
 });
 
