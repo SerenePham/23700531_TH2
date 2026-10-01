@@ -5,8 +5,8 @@ import {
   TouchableOpacity,
   FlatList,
   StyleSheet,
-  SafeAreaView,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { ROOM_LABEL, VARIANT } from '@constants/student';
 import { COLORS } from '@constants/theme';
 import Watermark from '@components/Watermark';
@@ -21,8 +21,7 @@ export const CartScreen: React.FC = () => {
   const { hasLocation, shippingFee } = useCampusLocation();
 
   const goodsTotal = totalAmount();
-  const finalShipFee = hasLocation ? shippingFee : 0;
-  const grandTotal = goodsTotal + finalShipFee;
+  const grandTotal = goodsTotal + shippingFee;
 
   const renderEmpty = () => (
     <View style={styles.emptyContainer}>
@@ -41,6 +40,16 @@ export const CartScreen: React.FC = () => {
         <Text style={styles.headerTitle}>GIỎ HÀNG</Text>
       </View>
 
+      {/* Shipping box — luôn hiển thị ngay dưới header */}
+      <View style={styles.shippingBox}>
+        <Text style={styles.roomText}>📍 Giao đến {ROOM_LABEL}</Text>
+        <Text style={styles.shippingText}>
+          Phí ship: {shippingFee.toLocaleString('vi-VN')} đ
+          {!hasLocation ? ' (mặc định)' : ''}
+        </Text>
+      </View>
+
+      {/* Danh sách món */}
       <View style={styles.content}>
         {items.length === 0 ? (
           renderEmpty()
@@ -57,8 +66,11 @@ export const CartScreen: React.FC = () => {
                     <Text style={styles.itemTitle} numberOfLines={1}>
                       {item.product.title}
                     </Text>
+                    <Text style={styles.itemPrice}>
+                      {calcProductVND(item.product.price).toLocaleString('vi-VN')} đ
+                    </Text>
                     <Text style={styles.itemSub}>
-                      ×{item.quantity}  {itemTotal.toLocaleString('vi-VN')} đ
+                      × {item.quantity} = {itemTotal.toLocaleString('vi-VN')} đ
                     </Text>
                   </View>
 
@@ -68,7 +80,7 @@ export const CartScreen: React.FC = () => {
                       onPress={() => changeQty(item.product.id, -1)}
                       activeOpacity={0.7}
                     >
-                      <Text style={styles.qtyBtnText}>-</Text>
+                      <Text style={styles.qtyBtnText}>−</Text>
                     </TouchableOpacity>
 
                     <Text style={styles.qtyDisplay}>{item.quantity}</Text>
@@ -92,27 +104,27 @@ export const CartScreen: React.FC = () => {
                 </View>
               );
             }}
-            ListFooterComponent={
-              <View style={styles.footerSection}>
-                {/* Khung địa chỉ phòng & phí ship có viền cam */}
-                <View style={styles.shippingBox}>
-                  <Text style={styles.roomText}>Giao đến {ROOM_LABEL}</Text>
-                  <Text style={styles.shippingText}>
-                    Phí ship: {shippingFee.toLocaleString('vi-VN')} đ{!hasLocation ? ' (mặc định)' : ''}
-                  </Text>
-                </View>
-
-                {/* Tổng tiền */}
-                <View style={styles.totalRow}>
-                  <Text style={styles.totalText}>
-                    Tổng hàng: {grandTotal.toLocaleString('vi-VN')} đ
-                  </Text>
-                </View>
-              </View>
-            }
           />
         )}
       </View>
+
+      {/* Tổng tiền — cố định phía dưới, ngay trên watermark */}
+      {items.length > 0 && (
+        <View style={styles.totalBar}>
+          <View style={styles.totalRow}>
+            <Text style={styles.totalLabel}>Tổng hàng</Text>
+            <Text style={styles.totalGoods}>{goodsTotal.toLocaleString('vi-VN')} đ</Text>
+          </View>
+          <View style={styles.totalRow}>
+            <Text style={styles.totalLabel}>Phí ship</Text>
+            <Text style={styles.totalShip}>{shippingFee.toLocaleString('vi-VN')} đ</Text>
+          </View>
+          <View style={[styles.totalRow, styles.grandTotalRow]}>
+            <Text style={styles.grandTotalLabel}>Thành tiền</Text>
+            <Text style={styles.grandTotalValue}>{grandTotal.toLocaleString('vi-VN')} đ</Text>
+          </View>
+        </View>
+      )}
 
       {!VARIANT.watermarkAtTop && <Watermark />}
     </SafeAreaView>
@@ -136,12 +148,32 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     letterSpacing: 0.5,
   },
+  shippingBox: {
+    backgroundColor: '#FFF7ED',
+    borderBottomWidth: 1.5,
+    borderBottomColor: COLORS.secondary,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  roomText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: COLORS.text,
+  },
+  shippingText: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: COLORS.secondary,
+  },
   content: {
     flex: 1,
   },
   listContent: {
     padding: 16,
-    paddingBottom: 24,
+    paddingBottom: 8,
   },
   cartCard: {
     backgroundColor: COLORS.surface,
@@ -160,13 +192,19 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   itemTitle: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '700',
     color: COLORS.text,
-    marginBottom: 4,
+    marginBottom: 2,
+  },
+  itemPrice: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: COLORS.primary,
+    marginBottom: 2,
   },
   itemSub: {
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.textLight,
   },
   qtyActionGroup: {
@@ -208,33 +246,47 @@ const styles = StyleSheet.create({
   deleteIcon: {
     fontSize: 14,
   },
-  footerSection: {
-    marginTop: 14,
-  },
-  shippingBox: {
-    backgroundColor: '#FFF7ED',
-    borderWidth: 1.5,
-    borderColor: COLORS.secondary,
-    borderRadius: 14,
-    padding: 14,
-    marginBottom: 16,
-  },
-  roomText: {
-    fontSize: 15,
-    fontWeight: '800',
-    color: COLORS.text,
-    marginBottom: 4,
-  },
-  shippingText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: COLORS.secondary,
+  // ─── Total Bar (cố định dưới) ───
+  totalBar: {
+    backgroundColor: COLORS.surface,
+    borderTopWidth: 1.5,
+    borderTopColor: '#E2E8F0',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    gap: 6,
   },
   totalRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 10,
   },
-  totalText: {
+  grandTotalRow: {
+    marginTop: 6,
+    paddingTop: 6,
+    borderTopWidth: 1,
+    borderTopColor: '#E2E8F0',
+  },
+  totalLabel: {
+    fontSize: 13,
+    color: COLORS.textLight,
+    fontWeight: '600',
+  },
+  totalGoods: {
+    fontSize: 13,
+    color: COLORS.text,
+    fontWeight: '600',
+  },
+  totalShip: {
+    fontSize: 13,
+    color: COLORS.secondary,
+    fontWeight: '600',
+  },
+  grandTotalLabel: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: COLORS.text,
+  },
+  grandTotalValue: {
     fontSize: 18,
     fontWeight: '800',
     color: COLORS.primary,

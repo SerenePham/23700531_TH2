@@ -6,10 +6,10 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
-  SafeAreaView,
   ScrollView,
   Alert,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { STUDENT, STALE_TIME_MS, VARIANT } from '@constants/student';
@@ -101,7 +101,7 @@ export const DetailScreen: React.FC = () => {
               <Text style={styles.descriptionText} numberOfLines={3}>
                 {product.description || 'Mô tả ngắn từ API (tối đa 3 dòng). Giữ nguyên id từ route.params.'}
               </Text>
-              <Text style={styles.paramNote}>ID: {id} · route.params</Text>
+              <Text style={styles.paramNote}>ID: {id} </Text>
             </View>
           </View>
 
@@ -111,7 +111,7 @@ export const DetailScreen: React.FC = () => {
             onPress={handleAddToCart}
             activeOpacity={0.8}
           >
-            <Text style={styles.addButtonText}>Thêm vào giỏ · Haptic</Text>
+            <Text style={styles.addButtonText}>Thêm vào giỏ</Text>
           </TouchableOpacity>
         </ScrollView>
       )}

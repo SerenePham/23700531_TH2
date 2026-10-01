@@ -4,9 +4,9 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   ActivityIndicator,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { STUDENT, examStamp, VARIANT } from '@constants/student';
 import { COLORS } from '@constants/theme';
 import Watermark from '@components/Watermark';
