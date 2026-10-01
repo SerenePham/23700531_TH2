@@ -182,7 +182,7 @@ export const HomeScreen: React.FC = () => {
             style={styles.searchInput}
             value={searchQuery}
             onChangeText={setSearchQuery}
-            placeholder={`Tìm món (debounce) — ${STUDENT.mssv}`}
+            placeholder={`Tìm món ăn yêu thích của bạn — ${STUDENT.mssv}`}
             placeholderTextColor={COLORS.textLight}
             clearButtonMode="while-editing"
           />
