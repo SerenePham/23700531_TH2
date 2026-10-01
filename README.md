@@ -22,7 +22,15 @@
 ### Cửa hàng và Thông tin thực đơn
 
 <p align="center">
+  <img src="docs/LoginScreen.jpg" width="48%">
   <img src="docs/HomeScreen.jpg" width="48%">
+  
+</p>
+
+### Cửa hàng và Thông tin thực đơn
+
+<p align="center">
+  <img src="docs/MainScreen.jpg" width="48%">
   <img src="docs/ItemDetail.jpg" width="48%">
   
 </p>
