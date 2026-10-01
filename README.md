@@ -19,11 +19,12 @@
 
 ## Screenshots thực tế
 
-### Cửa hàng & Account
+### Cửa hàng và Thông tin thực đơn
 
 <p align="center">
   <img src="docs/HomeScreen.jpg" width="48%">
-  <img src="docs/AccountScreen.jpg" width="48%">
+  <img src="docs/ItemDetail.jpg" width="48%">
+  
 </p>
 
 ### Mạng Internet/Data
@@ -41,10 +42,10 @@
   <img src="docs/CartScreenNoGPS.jpg" width="48%">
 </p>
 
-### Vị trí & Thông tin chi tiết
+### Vị trí & Account
 
 <p align="center">
   <img src="docs/GPSrequest.jpg" width="48%">
-  <img src="docs/ItemDetail.jpg" width="48%">
+  <img src="docs/AccountScreen.jpg" width="48%">
   
 </p>
