@@ -12,7 +12,7 @@ import { FlashList } from '@shopify/flash-list';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { STUDENT, STALE_TIME_MS, VARIANT } from '@constants/student';
+import { STUDENT, STALE_TIME_MS, VARIANT, ROOM_LABEL } from '@constants/student';
 import { COLORS } from '@constants/theme';
 import Watermark from '@components/Watermark';
 import ProductCard from '@components/ProductCard';
@@ -107,7 +107,7 @@ export const HomeScreen: React.FC = () => {
       <View style={styles.headerBanner}>
         <View>
           <Text style={styles.headerTitle}>KTXGO</Text>
-          <Text style={styles.headerSubtitle}>Giao tại phòng X7.15</Text>
+          <Text style={styles.headerSubtitle}>Giao tại {ROOM_LABEL}</Text>
         </View>
       </View>
 

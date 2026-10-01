@@ -99,8 +99,8 @@ export const CartScreen: React.FC = () => {
                   <Text style={styles.roomText}>Giao đến {ROOM_LABEL}</Text>
                   <Text style={styles.shippingText}>
                     {hasLocation
-                      ? `Phí ship: ${shippingFee.toLocaleString('vi-VN')} đ (công thức ${VARIANT.shipFormula})`
-                      : 'Phí ship: Chưa cập nhật (vào tab Tôi)'}
+                      ? `Phí ship: ${shippingFee.toLocaleString('vi-VN')} đ`
+                      : 'Phí ship: Chưa cập nhật'}
                   </Text>
                 </View>
 

@@ -32,13 +32,24 @@ export const MeScreen: React.FC = () => {
   const getStatusColor = () => {
     switch (status) {
       case 'granted':
-        return COLORS.success;
+        return '#16A34A'; // green
       case 'blocked':
-        return COLORS.error;
       case 'denied':
-        return '#EAB308';
+        return '#DC2626'; // red
       default:
         return COLORS.textLight;
+    }
+  };
+
+  const getStatusLabel = () => {
+    switch (status) {
+      case 'granted':
+        return 'Allowed';
+      case 'blocked':
+      case 'denied':
+        return 'Denied';
+      default:
+        return status;
     }
   };
 
@@ -65,7 +76,7 @@ export const MeScreen: React.FC = () => {
           <View style={styles.statusRow}>
             <Text style={styles.statusLabel}>Quyền: </Text>
             <Text style={[styles.statusValue, { color: getStatusColor() }]}>
-              {status}
+              {getStatusLabel()}
             </Text>
           </View>
 
@@ -76,9 +87,6 @@ export const MeScreen: React.FC = () => {
           <Text style={styles.feeLabel}>Phí ship ước tính</Text>
           <Text style={styles.feeValue}>
             {shippingFee.toLocaleString('vi-VN')} đ
-          </Text>
-          <Text style={styles.formulaNote}>
-            (áp dụng công thức {VARIANT.shipFormula})
           </Text>
 
           {loading && (
@@ -106,7 +114,7 @@ export const MeScreen: React.FC = () => {
             onPress={openSettings}
             activeOpacity={0.7}
           >
-            <Text style={styles.outlineBtnText}>Mở Cài đặt (blocked)</Text>
+            <Text style={styles.outlineBtnText}>Mở Cài đặt (BLOCKED)</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
